@@ -30,7 +30,7 @@ class RecipeController extends Controller
         if($recipes->count() > 0) {
             return response()->json([
                 'status' => 200,
-                 'recipes' => $recipes
+                'recipes' => $recipes
             ],200);
         } else {
             return response()->json([
