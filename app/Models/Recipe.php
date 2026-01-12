@@ -15,6 +15,7 @@ class Recipe extends Model
         'description',
         'ingredients',
         'category',
-        'difficulty'
+        'difficulty',
+        'how_to_cook'
     ];
 }

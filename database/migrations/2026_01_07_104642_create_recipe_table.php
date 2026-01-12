@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('recipe_image');
             $table->string('preparation_time');
             $table->string('cook_time');
-             $table->string('description');
-              $table->string('ingredients');
+            $table->string('description');
+            $table->string('ingredients');
             $table->string('category');
             $table->string('difficulty');
             $table->timestamps();
