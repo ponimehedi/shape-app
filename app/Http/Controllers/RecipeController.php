@@ -29,8 +29,8 @@ class RecipeController extends Controller
             'ingredients' => $item->ingredients,
             'category' => $item->category,
             'difficulty' => $item->difficulty,
-            'how_to_cook' => $item->how_to_cook
-          ];
+            'how_to_cook' => $item->how_to_cook,
+			];  
         });
 
         if($recipes->count() > 0) {
