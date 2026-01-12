@@ -10,9 +10,15 @@ use Illuminate\Support\Facades\Validator;
 class RecipeController extends Controller
 {  
     // Get
-    public function index() 
-    {
-        $recipes = Recipe::all()->map(function ($item){
+    public function index(Request $request) 
+    {   
+		// query for category specefic field filter  
+		$query = Recipe::query();
+        if($request->filled('category')){
+			$query->where('category',$request->category);
+		} 
+
+        $recipes = $query->get()->map(function ($item){
           return [
             'id' => $item->id,
             'name'=> $item->name,
