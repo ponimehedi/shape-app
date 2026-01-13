@@ -14,6 +14,7 @@ class RecipeController extends Controller
     {   
 		// query for category specefic field filter  
 		$query = Recipe::query();
+		
         if($request->filled('category')){
 			$query->where('category',$request->category);
 		} 
