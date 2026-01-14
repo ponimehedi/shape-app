@@ -6,6 +6,7 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeCategoryController; 
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\CommentsController; 
+use App\Http\Controllers\ShapeController;
 
 
 Route::get('/user', function (Request $request) {
@@ -43,3 +44,9 @@ Route::get('comments/{id}',[CommentsController::class,'show']);
 Route::get('comments/{id}/edit',[CommentsController::class,'edit']);
 Route::put('comments/{id}/edit',[CommentsController::class,'update']); 
 Route::delete('comments/{id}/delete',[CommentsController::class,'destroy']); 
+
+// About shape 
+Route::get('about_me',[ShapeController::class,'index']);
+Route::post('about_me',[ShapeController::class,'store']); 
+Route::get('about_me/{id}/edit',[ShapeController::class,'edit']);
+Route::put('about_me/{id}/edit',[ShapeController::class,'update']);
