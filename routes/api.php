@@ -7,6 +7,7 @@ use App\Http\Controllers\RecipeCategoryController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\CommentsController; 
 use App\Http\Controllers\ShapeController;
+use App\Http\Controllers\AuthController;
 
 
 Route::get('/user', function (Request $request) {
@@ -49,4 +50,10 @@ Route::delete('comments/{id}/delete',[CommentsController::class,'destroy']);
 Route::get('about_me',[ShapeController::class,'index']);
 Route::post('about_me',[ShapeController::class,'store']); 
 Route::get('about_me/{id}/edit',[ShapeController::class,'edit']);
-Route::put('about_me/{id}/edit',[ShapeController::class,'update']);
+Route::put('about_me/{id}/edit',[ShapeController::class,'update']); 
+
+// Authentication 
+Route::get('getall',[AuthController::class,'index']);
+Route::post('registration',[AuthController::class,'registration']);
+Route::post('login',[AuthController::class,'login']);
+
