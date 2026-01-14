@@ -39,4 +39,7 @@ Route::delete('users/{id}/delete',[UserInfoController::class,'destroy']);
 // comments 
 Route::get('comments',[CommentsController::class,'index']);
 Route::post('comments',[CommentsController::class,'store']);
-
+Route::get('comments/{id}',[CommentsController::class,'show']);
+Route::get('comments/{id}/edit',[CommentsController::class,'edit']);
+Route::put('comments/{id}/edit',[CommentsController::class,'update']); 
+Route::delete('comments/{id}/delete',[CommentsController::class,'destroy']); 

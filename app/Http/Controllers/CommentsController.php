@@ -17,6 +17,7 @@ class CommentsController extends Controller
             'id' => $item->id,
             'user_info_id' => $item->user_info_id,
             'user_name' => $item->user->name,
+            'email' => $item->user->email,
             'message' => $item->message,
             'status' => $item->status,
             'reaction' => $item->reaction
@@ -53,7 +54,7 @@ class CommentsController extends Controller
       }  
 
       $userExist = UserInfo::where('email',$request->email)->first();
-
+     
       if($userExist){
         $newMessage = Comments::create(
             [
@@ -72,15 +73,104 @@ class CommentsController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
-    
-        if($newUser)
-            {
-                $newMessage = Comments::create([
+        // \Log::info($newUser);
+         $newMessage = Comments::create([
                     'user_info_id' => $newUser->id,
-                    'message' => $newMessage
+                    'message' => $request->message
                 ]);
-            }
+           return response()->json([
+            'success' => true,
+            'message' => $newMessage
+        ]);
          }
-   
+   } 
+    // Get By Id 
+    public function show($id) 
+    {
+      $comments = Comments::find($id); 
+
+     if(!$comments) {
+         return response()->json([
+        'success' => false,
+        'message' => "No such comments found",
+      ],404);
+      }
+     
+      return response()->json([
+        'success' => true,
+        'Comments' => $comments,
+      ],200);  
+    } 
+    // Edit 
+    public function edit($id) 
+    {
+        $comments = Comments::find($id);
+
+        if($comments) {
+        return response()->json([
+            'success' => true,
+            'comments' => $comments
+        ],200);
+     }else{
+        return response()->json([
+            'success' => false,
+            'message' => 'No such found comments'
+        ],404);
+     }
+    } 
+    // update 
+    public function update(Request $request,int $id) 
+    {
+        $validator = Validator::make($request->all(),[
+            'message' => 'sometimes|string',
+            'status' => 'sometimes|string',
+            'reaction' => 'sometimes|string'
+        ]);
+
+      if($validator->fails()) {
+            return response()->json([
+            'success' 	=> false,
+            'message' 	=> "Validation failed",
+            'errors'	=> $validator->errors()->messages(),
+            ]);
+      } 
+       $comments = Comments::find($id); 
+
+        if($comments){ 
+        $comments->update([
+            'message' => $request->message,
+            'status' => $request->status,
+            'reaction' => $request->reaction
+        ]); 
+        return response()->json([
+            'success' => true,
+            'message' => 'comments updated successfully'
+        ],200);
+     } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No such comments found'
+            ],404);
+        }  
+    }
+    // Delete
+    public function destroy($id)
+    {
+      $comments = Comments::find($id); 
+
+      if($comments){ 
+
+        $comments->delete();
+
+        return response()->json([
+        'success' => true,
+        'message' => 'comments deleted successfully'
+        ],200);
+     }else {
+        return response()->json([
+            'success' => false, 
+            'message' => 'No such commtnts found'
+        ],404);
+     }
     }
 }
