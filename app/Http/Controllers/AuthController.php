@@ -50,6 +50,7 @@ class AuthController extends Controller
           'errors'	=> $validator->errors()->messages(),
         ]);
         } 
+
       $user = User::where('email',$request->email)->first();
 
       if($user){
@@ -86,11 +87,11 @@ class AuthController extends Controller
         ]);
         
       if($validator->fails()) {
-        return response()->json([
-          'success' 	=> false,
-          'message' 	=> "Validation failed",
-          'errors'	=> $validator->errors()->messages(),
-        ]);
+          return response()->json([
+            'success' 	=> false,
+            'message' 	=> "Validation failed",
+            'errors'	=> $validator->errors()->messages(),
+          ]);
         } 
 
         $user = User::where('email',$request->email)->first();
