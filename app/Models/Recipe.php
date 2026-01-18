@@ -17,5 +17,10 @@ class Recipe extends Model
         'category',
         'difficulty',
         'how_to_cook'
-    ];
+    ]; 
+    // relation
+    public function comments()
+    {
+        return $this->hasMany(Comments::class, 'recipe_id');
+    }
 }

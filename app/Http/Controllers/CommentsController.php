@@ -18,6 +18,7 @@ class CommentsController extends Controller
             'user_info_id' => $item->user_info_id,
             'user_name' => $item->user->name,
             'email' => $item->user->email,
+            'recipe_id' =>$item->recipe->id,
             'message' => $item->message,
             'status' => $item->status,
             'reaction' => $item->reaction
@@ -43,7 +44,8 @@ class CommentsController extends Controller
             'name' => 'required|string|max:191',
             'email' => 'required|string',
             'phone' => 'required|string',
-            'message' => 'required|string'
+            'message' => 'required|string',
+            'recipe_id' => 'required|integer'
         ]);
       if($validator->fails()) {
         return response()->json([
@@ -59,7 +61,8 @@ class CommentsController extends Controller
         $newMessage = Comments::create(
             [
                 'user_info_id' => $userExist->id,
-                'message' => $request->message
+                'message' => $request->message,
+                'recipe_id' =>$request->recipe_id
             ]
         );
         return response()->json([
@@ -76,7 +79,8 @@ class CommentsController extends Controller
         // \Log::info($newUser);
          $newMessage = Comments::create([
                     'user_info_id' => $newUser->id,
-                    'message' => $request->message
+                    'message' => $request->message,
+                    'recipe_id' =>$request->recipe_id,
                 ]);
            return response()->json([
             'success' => true,

@@ -13,7 +13,9 @@ class RecipeController extends Controller
     public function index(Request $request) 
     {   
 		// query for category specefic field filter  
-		$query = Recipe::query();
+		//$query = Recipe::query();
+
+		$query = Recipe::with('comments.user');
 		
         if($request->filled('category')){
 			$query->where('category',$request->category);
@@ -31,6 +33,15 @@ class RecipeController extends Controller
             'category' => $item->category,
             'difficulty' => $item->difficulty,
             'how_to_cook' => $item->how_to_cook,
+			'comments' => $item->comments->map(function ($data){
+				return [
+					'id' => $data->id,
+					'name' => $data->user->name,
+					'email' => $data->user->email,
+					'message' => $data->message,
+					'status' => $data->status
+				];
+			})
 			];  
         });
 

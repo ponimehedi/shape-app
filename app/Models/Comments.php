@@ -12,12 +12,18 @@ class Comments extends Model
         'user_info_id',
         'message',
         'status',
-        'reaction'
+        'reaction',
+        'recipe_id'
     ];
     // relation
      public function user()
      {
         return $this->belongsTo(UserInfo::class, 'user_info_id');
+     } 
+
+     public function recipe()
+     {
+        return $this->belongsTo(Recipe::class,'recipe_id');
      }
     
 }

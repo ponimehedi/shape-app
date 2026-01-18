@@ -16,8 +16,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Syntax for login User Authentication
-// Route::middleware('auth:sanctum')->group(function () {
-    
+// Route::middleware('auth:sanctum')->group(function () {  
 // });
 
 // Syntax for User Based Authentication
@@ -25,23 +24,23 @@ Route::get('/user', function (Request $request) {
 
 
 // Recipe
-Route::middleware('auth:sanctum')->group(function () {
 
-Route::get('recipes',[RecipeController::class,'index']);
-Route::post('recipes',[RecipeController::class,'store']); 
-Route::get('recipes/{id}',[RecipeController::class,'show']);
-Route::get('recipes/{id}/edit',[RecipeController::class,'edit']);
-Route::put('recipes/{id}/edit',[RecipeController::class,'update'])->middleware(AdminMiddleware::class);
-Route::delete('recipes/{id}/delete',[RecipeController::class,'destroy'])->middleware(AdminMiddleware::class); 
-
-});
+// Route::middleware('auth:sanctum')->group(function () {
 
 // Route::get('recipes',[RecipeController::class,'index']);
 // Route::post('recipes',[RecipeController::class,'store']); 
 // Route::get('recipes/{id}',[RecipeController::class,'show']);
 // Route::get('recipes/{id}/edit',[RecipeController::class,'edit']);
-// Route::put('recipes/{id}/edit',[RecipeController::class,'update']);
-// Route::delete('recipes/{id}/delete',[RecipeController::class,'destroy']); 
+// Route::put('recipes/{id}/edit',[RecipeController::class,'update'])->middleware(AdminMiddleware::class);
+// Route::delete('recipes/{id}/delete',[RecipeController::class,'destroy'])->middleware(AdminMiddleware::class); 
+// });
+
+Route::get('recipes',[RecipeController::class,'index']);
+Route::post('recipes',[RecipeController::class,'store']); 
+Route::get('recipes/{id}',[RecipeController::class,'show']);
+Route::get('recipes/{id}/edit',[RecipeController::class,'edit']);
+Route::put('recipes/{id}/edit',[RecipeController::class,'update']);
+Route::delete('recipes/{id}/delete',[RecipeController::class,'destroy']); 
 
 
 // Category 
