@@ -11,6 +11,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController; 
 use App\Http\Controllers\RecipeReviewController; 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\SettingsController; 
 
 
 Route::get('/user', function (Request $request) {
@@ -85,4 +86,9 @@ Route::post('login',[AuthController::class,'login']);
 
 // Dashboard 
 Route::get('dashboard',[DashboardController::class,'index']);
+
+// 
+Route::get('settings',[SettingsController::class,'index']);
+Route::post('settings',[SettingsController::class,'store']);
+
 
