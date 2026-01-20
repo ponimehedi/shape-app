@@ -8,7 +8,8 @@ use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\CommentsController; 
 use App\Http\Controllers\ShapeController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardController; 
+use App\Http\Controllers\RecipeReviewController; 
 use App\Http\Middleware\AdminMiddleware;
 
 
@@ -43,6 +44,9 @@ Route::get('recipes/{id}/edit',[RecipeController::class,'edit']);
 Route::put('recipes/{id}/edit',[RecipeController::class,'update']);
 Route::delete('recipes/{id}/delete',[RecipeController::class,'destroy']); 
 
+// Recipe Review Count 
+Route::get('recipeReviews',[RecipeReviewController::class,'index']);
+Route::get('recipeReviews/{id}',[RecipeReviewController::class,'show']);
 
 // Category 
 Route::get('categories',[RecipeCategoryController::class,'index']); 

@@ -12,7 +12,7 @@ class RecipeController extends Controller
     // Get
     public function index(Request $request) 
     {   
-		// query for category specefic field filter  
+		// query for category specefic field filter
 		//$query = Recipe::query();
 
 		$query = Recipe::with('comments.user');
@@ -33,6 +33,7 @@ class RecipeController extends Controller
             'category' => $item->category,
             'difficulty' => $item->difficulty,
             'how_to_cook' => $item->how_to_cook,
+			// 'review_count' => $item->comments->count(),
 			'comments' => $item->comments->map(function ($data){
 				return [
 					'id' => $data->id,
@@ -139,6 +140,7 @@ class RecipeController extends Controller
             'difficulty' => $recipes->difficulty,
             'how_to_cook' => $recipes->how_to_cook,
 			// comments na chile dibo na
+			'review_count' => $recipes->comments->count(),
 			'comments' =>$recipes->comments->map(function ($data){
 				return [
                     'id' => $data->id,
