@@ -112,7 +112,11 @@ class RecipeController extends Controller
     // Get by id 
     public function show($id)
     { 
-     $recipes = Recipe::find($id);
+
+     //$recipes = Recipe::find($id);
+
+	// Indivisual id er jonno comments shoho dekaitechi chaitechi tai eta use korchi
+	 $recipes = Recipe::with('comments.user')->find($id);
 
       if(!$recipes) {
          return response()->json([
@@ -133,7 +137,17 @@ class RecipeController extends Controller
             'ingredients' => $recipes->ingredients,
             'category' => $recipes->category,
             'difficulty' => $recipes->difficulty,
-            'how_to_cook' => $recipes->how_to_cook
+            'how_to_cook' => $recipes->how_to_cook,
+			// comments na chile dibo na
+			'comments' =>$recipes->comments->map(function ($data){
+				return [
+                    'id' => $data->id,
+					'name' => $data->user->name,
+					'email' => $data->user->email,
+					'message' => $data->message,
+					'status' => $data->status
+				];
+			})
         ],
       ],200);    
     } 
