@@ -8,6 +8,7 @@ use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\CommentsController; 
 use App\Http\Controllers\ShapeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\AdminMiddleware;
 
 
@@ -76,5 +77,8 @@ Route::put('about_me/{id}/edit',[ShapeController::class,'update']);
 // Authentication 
 Route::get('getall',[AuthController::class,'index']);
 Route::post('registration',[AuthController::class,'registration']);
-Route::post('login',[AuthController::class,'login']);
+Route::post('login',[AuthController::class,'login']); 
+
+// Dashboard 
+Route::get('dashboard',[DashboardController::class,'index']);
 
