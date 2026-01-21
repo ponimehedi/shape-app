@@ -87,7 +87,7 @@ Route::post('login',[AuthController::class,'login']);
 // Dashboard 
 Route::get('dashboard',[DashboardController::class,'index']);
 
-// 
+//Global settings
 Route::get('settings',[SettingsController::class,'index']);
 Route::post('settings',[SettingsController::class,'store']);
 

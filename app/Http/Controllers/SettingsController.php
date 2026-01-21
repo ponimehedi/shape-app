@@ -16,7 +16,9 @@ class SettingsController extends Controller
             'siteName' => settings('siteName'),
             'slider1' => asset('storage/'.settings('slider1')),
             'slider2' => asset('storage/'.settings('slider2')),
-            'slider3' => asset('storage/'.settings('slider3')),
+            'slider3' => asset('storage/'.settings('slider3')), 
+            'address' => settings('address'),
+            'phone_number' => settings('phone_number') 
         ]);
     } 
     // create 
@@ -31,6 +33,8 @@ class SettingsController extends Controller
                 'slider1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'slider2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'slider3' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'address' => 'nullable|string',
+                'phone_number' => 'nullable|string'
             ]); 
 
             //if logo exixts
