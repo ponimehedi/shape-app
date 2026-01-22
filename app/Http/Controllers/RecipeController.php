@@ -66,11 +66,11 @@ class RecipeController extends Controller
 			'recipe_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 			'preparation_time' => 'required',
 			'cook_time' => 'required',
-			'description' => 'required | string',
-			'ingredients' => 'required | string',
-			'category' => 'required | string | max:191',
-			'difficulty' => 'required |string | max:191',
-			'how_to_cook' => 'required | string'
+			'description' => 'required|string',
+			'ingredients' => 'required|string',
+			'category' => 'required|string|max:191',
+			'difficulty' => 'required|string|max:191',
+			'how_to_cook' => 'nullable|string'
 		]); 
 		if ($validator->fails()) {
 			return response()->json([
@@ -182,7 +182,7 @@ class RecipeController extends Controller
 			'ingredients' => 'sometimes|string',
 			'category' => 'sometimes|string|max:191',
 			'difficulty' => 'sometimes|string|max:191',
-			'how_to_cook' => 'required|string'
+			'how_to_cook' => 'sometimes|string'
 		]);
 		if ($validator->fails()) {
 			return response()->json([

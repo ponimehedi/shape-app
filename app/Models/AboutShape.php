@@ -9,6 +9,7 @@ class AboutShape extends Model
     protected $table = 'shape_about';
 
     protected $fillable =[
-    'about_me'
+    'about_me',
+    'image'
     ];
 }

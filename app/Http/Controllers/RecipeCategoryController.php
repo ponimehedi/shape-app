@@ -74,6 +74,7 @@ class RecipeCategoryController extends Controller
     public function show($id) 
     {
      $categories = Category::find($id); 
+     //'category_image' => asset('storage/'.$item->category_image),
 
      if(!$categories) {
          return response()->json([
@@ -84,7 +85,12 @@ class RecipeCategoryController extends Controller
      
       return response()->json([
         'success' => true,
-        'category' => $categories,
+        'category' => [
+        'id' => $categories->id,
+        'category_name' => $categories->category_name,
+        'category_image' => asset('storage/'.$categories->category_image),
+        'category_description' => $categories->category_description
+        ],
       ],200);   
     }
     // Edit 

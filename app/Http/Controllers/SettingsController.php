@@ -12,13 +12,13 @@ class SettingsController extends Controller
     public function index() 
     {
         return response()->json([
-            'logo' => asset('storage/'.settings('logo')),
-            'siteName' => settings('siteName'),
-            'slider1' => asset('storage/'.settings('slider1')),
-            'slider2' => asset('storage/'.settings('slider2')),
-            'slider3' => asset('storage/'.settings('slider3')), 
-            'address' => settings('address'),
-            'phone_number' => settings('phone_number') 
+          'logo' => asset('storage/'.settings('logo')),
+          'siteName' => settings('siteName'),
+          'slider1' => asset('storage/'.settings('slider1')),
+          'slider2' => asset('storage/'.settings('slider2')),
+          'slider3' => asset('storage/'.settings('slider3')), 
+          'address' => settings('address'),
+          'phone_number' => settings('phone_number') 
         ]);
     } 
     // create 
@@ -27,7 +27,6 @@ class SettingsController extends Controller
         try{
 
             $validated =  $request->validate([
-
                 'logo'  => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'siteName' => 'nullable|string',
                 'slider1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

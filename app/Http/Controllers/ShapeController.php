@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AboutShape;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ShapeController extends Controller
 {   
@@ -14,7 +15,8 @@ class ShapeController extends Controller
          $shape = AboutShape::all()->map(function ($item){
             return[
             'id' => $item->id,
-            'about_me' => $item->about_me
+            'about_me' => $item->about_me,
+            'image' => asset('storage/'.$item->image)
             ];
           }); 
 
@@ -35,6 +37,7 @@ class ShapeController extends Controller
     {
      $validator = Validator::make($request->all(),[
             'about_me' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
       if($validator->fails()) {
         return response()->json([
@@ -42,9 +45,16 @@ class ShapeController extends Controller
           'message' 	=> "Validation failed",
           'errors'	=> $validator->errors()->messages(),
         ]);
-        }  
+        } 
+
+      // Image file upload 
+      $image = $request->file('image');
+      $imageName = time().'.'.$image->getClientOriginalExtension();
+		  $image->storeAs('AboutImages',$imageName,'public');
+
      $shape = AboutShape::create([
-        'about_me' => $request->about_me
+        'about_me' => $request->about_me,
+        'image' => 'AboutImages/'.$imageName,
      ]);
      if($shape) {
             return response()->json([
@@ -81,6 +91,7 @@ class ShapeController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'about_me' => 'sometimes|string',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
       if($validator->fails()) {
         return response()->json([
@@ -89,12 +100,28 @@ class ShapeController extends Controller
           'errors'	=> $validator->errors()->messages(),
         ]);
         }   
+
      $shape = AboutShape::find($id); 
+
      if($shape) 
-        {
+        { 
+        //Image file update 
+        if($request->hasFile('image')){
+					$oldImg = $shape->image;
+					$image = $request->file('image');
+					$imageName = time().'.'.$image->getClientOriginalExtension();
+					$image->storeAs('AboutImages',$imageName,'public');
+					$shape->image = 'AboutImages/'.$imageName;
+
+					if($oldImg && Storage::disk('public')->exists($oldImg)) {
+						Storage::disk('public')->delete($oldImg);
+					} 
+				}
+
          $shape->update([
         'about_me' => $request->about_me
       ]); 
+
       return response()->json([
         'success' => true,
         'message' => 'about me updated successfully'
